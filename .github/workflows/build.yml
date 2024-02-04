@@ -1,0 +1,43 @@
+name: Build
+on:
+  pull_request:
+    paths:
+      - password-checker/**
+      - password-checker-backend/**
+
+jobs:
+  build-frontend:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        step: [build,test]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "18"
+          cache: "npm"
+      - name: Change to /password-checker directory
+        run: cd password-checker/
+      - name: install dependencies
+        run: npm ci
+      - name: run ${{ matrix.step }}
+        run: npm run ${{ matrix.step }}
+  build-backend:
+    needs: build-frontend
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        step: [build,test]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "18"
+          cache: "npm"
+      - name: Change to /password-checker-backend directory
+        run: cd password-checker-backend/
+      - name: install dependencies
+        run: npm ci
+      - name: run ${{ matrix.step }}
+        run: npm run ${{ matrix.step }}
