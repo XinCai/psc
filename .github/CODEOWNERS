@@ -1,0 +1,5 @@
+# CODEOWNERS file
+# This file defines code owners for the repository.
+
+# Owner for the entire repository
+*       @ozbillwang @figohuang @XinCai
