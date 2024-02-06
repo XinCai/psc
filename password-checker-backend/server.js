@@ -8,8 +8,14 @@ app.get('/health', (req, res) => {
   res.status(200).json({ status: 'ok' });
 });
 
+const corsOptions = {
+  origin: 'https://psc-backend.onrender.com',
+  optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
+};
+
 const cors = require('cors');
-app.use(cors()); // This will allow all domains. For production, configure allowed origins.
+// app.use(cors()); // This will allow all domains. For production, configure allowed origins.
+app.use(cors(corsOptions));
 app.options('*',cors())// include before other routes
 
 const PORT = process.env.PORT || 5000;
