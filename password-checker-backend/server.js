@@ -4,9 +4,8 @@ const express = require('express');
 const axios = require('axios');
 const app = express();
 
-app.get('/', (req, res) => {
-  console.log('->', req.url)
-  res.send("<h1>hello</h1>")
+app.get('/health', (req, res) => {
+  res.status(200).json({ status: 'ok' });
 });
 
 const cors = require('cors');
